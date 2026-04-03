@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Website Analyzer</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header text-center">
+            <h1><i class="fa-solid fa-satellite-dish pulse-icon"></i> WebIntellect</h1>
+            <p>AI-Powered Website Analysis & Insights</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- URL Input Section -->
+            <section id="url-section" class="glass-panel slide-up">
+                <div class="url-input-group">
+                    <i class="fa-solid fa-link input-icon"></i>
+                    <input type="url" id="url-input" placeholder="https://example.com" required>
+                    <button id="analyze-btn" class="btn primary-btn">Analyze site</button>
+                </div>
+                <div id="loading-indicator" class="hidden">
+                    <div class="spinner"></div>
+                    <span>Crawling & Analyzing...</span>
+                </div>
+                <div id="error-message" class="error hidden"></div>
+            </section>
+
+            <!-- Dashboard / Results Section (Hidden initially) -->
+            <section id="dashboard" class="dashboard-grid hidden">
+                <!-- Data Preview Panel -->
+                <div class="glass-panel preview-panel">
+                    <h3><i class="fa-solid fa-chart-pie"></i> Website Overview</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fa-solid fa-heading"></i>
+                            <div class="stat-info">
+                                <h4>Title</h4>
+                                <span id="site-title">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <div class="stat-info">
+                                <h4>Words Extracted</h4>
+                                <span id="site-words">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fa-solid fa-link"></i>
+                            <div class="stat-info">
+                                <h4>Links Found</h4>
+                                <span id="site-links">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fa-solid fa-hand-pointer"></i>
+                            <div class="stat-info">
+                                <h4>Buttons/Forms</h4>
+                                <span id="site-interactive">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat AI Interface Panel -->
+                <div class="glass-panel chat-panel">
+                    <h3><i class="fa-solid fa-robot"></i> AI Analyst Chat</h3>
+                    <div id="chat-window" class="chat-window">
+                        <div class="chat-message system-msg">
+                            <i class="fa-solid fa-microchip"></i>
+                            <div class="msg-content">
+                                Analysis complete! You can now ask me questions about this website's content, links, and structure.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="e.g. Can you summarize the main product?">
+                        <button id="send-btn" class="btn primary-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center">
+            <p>&copy; 2026 WebIntellect Prototype</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
