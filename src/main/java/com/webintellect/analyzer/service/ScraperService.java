@@ -9,16 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
-=======
-import java.io.IOException;
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +23,6 @@ public class ScraperService {
 
     private static final Logger logger = LoggerFactory.getLogger(ScraperService.class);
 
-<<<<<<< HEAD
     static {
         // Disable strict SSL certificate verification for web scraping
         // (required for some websites with certificate issues)
@@ -50,8 +45,28 @@ public class ScraperService {
         }
     }
 
-=======
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
+    static {
+        // Disable strict SSL certificate verification for web scraping
+        // (required for some websites with certificate issues)
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+                }
+            };
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+        } catch (Exception e) {
+            logger.warn("Failed to disable SSL verification", e);
+        }
+    }
+
     public WebsiteContent scrapeWebsite(String url) {
         logger.info("Starting scrape for URL: {}", url);
         WebsiteContent content = new WebsiteContent();

@@ -8,10 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 import org.springframework.web.client.HttpClientErrorException;
-=======
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -37,12 +34,8 @@ public class GeminiAiService implements AiEngineService {
 
     @Override
     public String askQuestion(String context, String question) {
-<<<<<<< HEAD
         if (apiKey == null || apiKey.trim().isEmpty() || "YOUR_GEMINI_API_KEY".equals(apiKey) ||
             "AIzaSyCEtE2sC2zzzjK2x5m34Z2GAa8uqHNWb_o".equals(apiKey)) {
-=======
-        if ("YOUR_GEMINI_API_KEY".equals(apiKey) || apiKey == null || apiKey.trim().isEmpty()) {
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
             logger.warn("Gemini API key is not configured. Returning mock response.");
             return "Note: The Application is in mock mode because no valid API key is configured in application.properties.\n\n" +
                    "I received your question: '" + question + "'.\n" +
@@ -51,7 +44,6 @@ public class GeminiAiService implements AiEngineService {
 
         try {
             String fullPrompt = buildSystemPrompt(context, question);
-<<<<<<< HEAD
 
             Map<String, Object> requestBody = new HashMap<>();
             boolean useGenerateContent = apiUrl.contains(":generateContent");
@@ -136,35 +128,6 @@ public class GeminiAiService implements AiEngineService {
             } else {
                 return "Error: Failed to communicate with Gemini AI service. Please check your API key and internet connection. Details: " + errorMessage;
             }
-=======
-            
-            // Construct the payload for Gemini 1.5 Flash
-            Map<String, Object> requestBody = new HashMap<>();
-            Map<String, Object> message = new HashMap<>();
-            message.put("role", "user");
-            
-            Map<String, Object> parts = new HashMap<>();
-            parts.put("text", fullPrompt);
-            message.put("parts", List.of(parts));
-            
-            requestBody.put("contents", List.of(message));
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            
-            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
-            
-            String endpoint = apiUrl + "?key=" + apiKey;
-            
-            logger.info("Sending request to Gemini API...");
-            ResponseEntity<Map> response = restTemplate.postForEntity(endpoint, entity, Map.class);
-            
-            return parseGeminiResponse(response.getBody());
-
-        } catch (Exception e) {
-            logger.error("Error communicating with Gemini API", e);
-            throw new RuntimeException("Failed to get response from AI: " + e.getMessage(), e);
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
         }
     }
 
@@ -183,7 +146,6 @@ public class GeminiAiService implements AiEngineService {
             if (responseBody == null || !responseBody.containsKey("candidates")) {
                 return "Error: Invalid response format from LLM.";
             }
-<<<<<<< HEAD
 
             List<Map<String, Object>> candidates = (List<Map<String, Object>>) responseBody.get("candidates");
             if (candidates.isEmpty()) return "No answer generated.";
@@ -230,22 +192,11 @@ public class GeminiAiService implements AiEngineService {
             }
 
             return "No answer generated from Gemini response.";
-=======
-            
-            List<Map<String, Object>> candidates = (List<Map<String, Object>>) responseBody.get("candidates");
-            if (candidates.isEmpty()) return "No answer generated.";
-            
-            Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
-            List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
-            
-            return (String) parts.get(0).get("text");
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
         } catch (Exception e) {
             logger.error("Error parsing Gemini response", e);
             return "Error parsing the response from the AI.";
         }
     }
-<<<<<<< HEAD
 
     private String tryFallbackModelVariants(HttpEntity<Map<String, Object>> entity, String originalBody) {
         if (!apiUrl.contains("/v1/models/")) {
@@ -284,6 +235,5 @@ public class GeminiAiService implements AiEngineService {
         logger.warn("Fallback model variant attempts failed. Original body: {}", originalBody);
         return null;
     }
-=======
->>>>>>> a758a07959bf0fd55917fa4d3041e0499e269a6f
 }
+

@@ -1,0 +1,29 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Build
+target/
+build/
+*.class
+
+# Dependencies
+node_modules/
+.gradle/
+
+# Sensitive files - DO NOT COMMIT
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
